@@ -7,7 +7,7 @@
 	inclusa la superficie superiore del liquido
 */
 
-#define hTank 61
+#define hTank 101
 #define brx 30
 #define bry 10
 
@@ -16,7 +16,7 @@
 int main()
 {
 	int col_liq = 11, p0x = 300, p0y = 300;
-	int sup_liq_col = 3, sup_int_col = 92, sup_est_col = 4;
+	int sup_liq_col = 3, sup_int_col = 92, sup_est_col = 2;
 	int p1x = p0x+2*brx, p1y = p0y;
 	int p2x = p0x, p2y = p0y-hTank;
 	int p3x = p1x, p3y = p1y;
