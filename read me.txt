@@ -1,0 +1,2 @@
+nei file provaN.c sono presenti i tentativi per ottenere un Tank/barile tramite la libreria Allegro.
+da barile cilindrico a rettangolare per avere una migliore gestione delle componenti grafiche, specialmente nel tentativo di animazione (prova4.c)
