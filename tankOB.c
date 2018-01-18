@@ -1,8 +1,9 @@
 # include <allegro.h>
 
-/*	forma del tank, con rubinetti
-	ancora pieno e tutti chiusi
+/*	forma del tank, base ovale, con rubinetti, NON PIENO
 	tank trasparente, liquido visibile su tutta la superficie
+	superficie superiore del liquido più scura, indica il livello
+
 */
 
 #define hTank 100
@@ -20,6 +21,7 @@ int main()
 	int p4x = p0x, p4y = p0y-hTank-bry-10;
 	int p3points [12] = {p3x, p3y, p3x, p3y-3, p3x+10, p3y-3, p3x+10, p3y+2, p3x+7, p3y+2, p3x+7, p3y};
 	int p4points [12] = {p4x, p4y, p4x, p4y-3, p4x+10, p4y-3, p4x+10, p4y+2, p4x+7, p4y+2, p4x+7, p4y};
+	int hTankNow = 60;
 
 	allegro_init();
 	install_keyboard();
@@ -28,15 +30,21 @@ int main()
 	set_gfx_mode(GFX_AUTODETECT,640,480,0,0); //full screen
 	clear_to_color(screen, 15); //white background
 
-	rect(screen, p0x, p0y, p0x+2*brx, p0y-hTank, 4);			//bordi laterali
-	ellipse(screen, p1x, p1y, brx, bry, 4);						//bordo inferiore	
-	rectfill(screen, p0x+1, p0y, p0x+2*brx-1, p0y-hTank, 11);	//riempimento centrale
-	ellipsefill(screen, p1x, p1y, brx-1, bry-1, 11);			//riempimento inferiore
-	ellipsefill(screen, p2x, p2y, brx-1, bry-1, 11);			//riempimento superiore
-	ellipse(screen, p2x, p2y, brx, bry, 4);						//bordo superiore
-	polygon(screen, 6, p3points, 7);							//rubinetto inferiore
-	polygon(screen, 6, p4points, 7);							//rubinetto superiore
+		//elementi FISSI
+		rect(screen, p0x, p0y, p0x+2*brx, p0y-hTank, 4);			//bordi laterali
+		rectfill(screen, p0x+1, p0y, p0x+2*brx-1, p0y-hTank, 90);	//sfondo centrale
+		ellipsefill(screen, p2x, p2y, brx-1, bry-1, 90);			//sfondo superiore
+		ellipse(screen, p1x, p1y, brx, bry, 4);						//bordo inferiore	
+		ellipsefill(screen, p1x, p1y, brx-1, bry-1, 11);			//riempimento inferiore
+		polygon(screen, 6, p3points, 7);							//rubinetto inferiore
+		polygon(screen, 6, p4points, 7);							//rubinetto superiore
 
+		//elementi MOBILI
+		rectfill(screen, p4x+7, p4y+2, p4x+10, p0y, 11);			//flusso tap in
+		rectfill(screen, p0x+1, p0y, p0x+2*brx-1, p0y-hTankNow, 11);//liquido centrale
+		ellipsefill(screen, p1x, p1y-hTankNow, brx-1, bry-1, 3);	//superficie top liquido
+		ellipse(screen, p2x, p2y, brx, bry, 4);						//bordo superiore
+		
 	readkey();
 	allegro_exit();
 	return 0;
